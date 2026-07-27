@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-banner">
+    <h1>Explore Our <span class="gold-text">Exclusive Packages</span></h1>
+    <p>Filtered for luxury, convenience, and perfection.</p>
+</div>
+
+<section class="section container">
+    <!-- Search and Category Filters -->
+    <div class="filter-bar glass-card">
+        <form action="/package" method="GET" class="filter-form">
+            <input type="text" name="search" placeholder="Search destination..." value="{{ request.args.get('search', '') }}">
+            
+            <select name="category" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                <option value="Europe" {% if active_category == 'Europe' %}selected{% endif %}>Europe Tours</option>
+                <option value="Dubai" {% if active_category == 'Dubai' %}selected{% endif %}>Dubai</option>
+                <option value="Bali" {% if active_category == 'Bali' %}selected{% endif %}>Bali</option>
+                <option value="Honeymoon" {% if active_category == 'Honeymoon' %}selected{% endif %}>Honeymoon Special</option>
+            </select>
+            
+            <button type="submit" class="btn btn-gold">Filter</button>
+        </form>
+    </div>
+
+    <!-- Package Grid -->
+    <div class="grid grid-3" style="margin-top: 2rem;">
+        {% for pkg in packages %}
+        <div class="glass-card package-card-3d">
+            <div class="card-img-wrapper">
+                <img src="{{ pkg.image }}" alt="{{ pkg.title }}">
+                <span class="badge-price">{{ pkg.price }}</span>
+            </div>
+            <div class="card-body">
+                <span class="category-tag">{{ pkg.category }}</span>
+                <h3>{{ pkg.title }}</h3>
+                <p class="duration-text"><i class="fa-solid fa-calendar-day gold-text"></i> {{ pkg.duration }}</p>
+                <ul class="pkg-features">
+                    {% for inc in pkg.includes %}
+                    <li><i class="fa-solid fa-check gold-text"></i> {{ inc }}</li>
+                    {% endfor %}
+                </ul>
+                <button onclick="openBookingModal('{{ pkg.title }}', '{{ pkg.price }}')" class="btn btn-gold full-width">Book Package</button>
+            </div>
+        </div>
+        {% else %}
+        <p>No packages found matching your criteria. Try resetting filters.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content glass-card">
+        <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+        <h2 id="modalPkgTitle">Book Package</h2>
+        <p id="modalPkgPrice" class="gold-text price-lg"></p>
+        
+        <form id="bookingForm" method="POST" action="/api/book"></form>
+            <input type="hidden" id="modalPkgTitleInput">
+            <input type="hidden" id="modalPkgPriceInput">
+            
+            <div class="form-group">
+                <label>Your Full Name</label>
+                <input type="text" id="custName" required placeholder="e.g. Rahul Sharma">
+            </div>
+            <div class="form-group">
+                <label>Phone Number / WhatsApp</label>
+                <input type="tel" id="custPhone" required placeholder="e.g. 9888082082">
+            </div>
+            <div class="form-group">
+                <label>Tentative Travel Date</label>
+                <input type="date" id="custDate" required>
+            </div>
+            <button type="submit" class="btn btn-gold full-width">Confirm Booking Request</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

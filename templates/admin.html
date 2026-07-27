@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-banner">
+    <h1>Sharma Travels <span class="gold-text">Admin Dashboard</span></h1>
+    <p>Live management of revenue, bookings, and active tour packages.</p>
+</div>
+
+<section class="section container">
+    
+    <div class="grid grid-4">
+        <div class="glass-card widget-card">
+            <h4>Total Revenue</h4>
+            <p class="widget-num gold-text">{{ stats.total_revenue }}</p>
+        </div>
+        <div class="glass-card widget-card">
+            <h4>Total Bookings</h4>
+            <p class="widget-num">{{ stats.today_bookings }}</p>
+        </div>
+        <div class="glass-card widget-card">
+            <h4>Active Packages</h4>
+            <p class="widget-num">{{ stats.total_packages }}</p>
+        </div>
+        <div class="glass-card widget-card">
+            <h4>Total Reviews</h4>
+            <p class="widget-num">{{ stats.total_reviews }}</p>
+        </div>
+    </div>
+
+    <!-- Booking Requests Table -->
+    <div class="glass-card" style="margin-top: 2rem;">
+        <h3>Recent Booking Requests</h3>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Package</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <td><strong>{{ b.id }}</strong></td>
+                    <td>{{ b.customer }}</td>
+                    <td>{{ b.phone }}</td>
+                    <td>{{ b.package }}</td>
+                    <td>{{ b.date }}</td>
+                    <td class="gold-text"><strong>{{ b.amount }}</strong></td>
+                    <td><span class="status-badge status-confirmed">{{ b.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Package Manager Controls -->
+    <div class="glass-card" style="margin-top: 2rem;">
+        <div class="flex-between">
+            <h3>Manage Tour Packages</h3>
+            <button type="button" onclick="toggleAddPkgForm()" class="btn btn-gold">+ Add New Package</button>
+        </div>
+
+        <!-- Add Package Form -->
+        <form id="addPkgForm" class="add-pkg-form hidden" onsubmit="handleAddPkgSubmit(event)" style="margin-top: 1rem;">
+            <div class="grid grid-3">
+                <input type="text" id="newTitle" placeholder="Package Title" required>
+                <input type="text" id="newCategory" placeholder="Category (e.g. Europe, Dubai)" required>
+                <input type="text" id="newDuration" placeholder="Duration (e.g. 5 Nights)" required>
+                <input type="number" id="newPrice" placeholder="Price in INR (e.g. 75000)" required>
+                <input type="text" id="newImage" placeholder="Image URL (Unsplash link)">
+                <button type="submit" class="btn btn-gold">Publish Package</button>
+            </div>
+        </form>
+
+        <table class="admin-table" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pkg in packages %}
+                <tr>
+                    <td>{{ pkg.title }}</td>
+                    <td>{{ pkg.category }}</td>
+                    <td class="gold-text">{{ pkg.price }}</td>
+                    <td>
+                        {% if pkg.active %}
+                            <span class="status-badge status-confirmed">Active</span>
+                        {% else %}
+                            <span class="status-badge status-disabled">Disabled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button type="button" data-id="{{ pkg.id }}" onclick="togglePackageStatus(this.getAttribute('data-id'))
+                        " class="btn btn-sm btn-outline-gold">
+                            {% if pkg.active %}Disable{% else %}Enable{% endif %}
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
