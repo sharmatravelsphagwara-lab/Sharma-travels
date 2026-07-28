@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-
-
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -10,9 +8,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 app.secret_key = "sharma_travels_luxury_secret_key"
 
-# DATABASE---
+# DATABASE--- #
 
 class Package(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     category = db.Column(db.String(100))
@@ -26,6 +25,7 @@ class Package(db.Model):
 
 
 class Booking(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     customer = db.Column(db.String(100))
     phone = db.Column(db.String(20))
@@ -35,6 +35,7 @@ class Booking(db.Model):
     amount = db.Column(db.String(50))
 
 class Review(db.Model):
+
     __tablename__ = "reviews"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -46,6 +47,7 @@ class Review(db.Model):
 
 
 class BusinessInfo(db.Model):
+
     __tablename__ = "business_info"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -76,7 +78,7 @@ with app.app_context():
         db.session.add(info)
         db.session.commit()
 
-# --- Routes ---
+# --- Routes --- #
 
 @app.route("/")
 def home():
@@ -97,6 +99,7 @@ def home():
         package=featured_packages,
         reviews=approved_reviews
     )
+
 @app.route("/package")
 def package():
 
@@ -126,14 +129,16 @@ def package():
         package=packages,
         active_category=category_filter
     )
+
 @app.route("/contact",methods=["GET","POST"])
 def contact():
     if request.method == "POST":
         data = request.form
-        # In production: save to database or send email
+
+        # In production: save to database or send email #
+
         return render_template("contact.html", info=BusinessInfo, success=True, name=data.get("name"))
-    return render_template("contact.html", info=BusinessInfo, success=True, name=data.get("name"))
-        
+    
 @app.route("/about",methods=["GET","POST"])
 def about():
     return render_template("about.html", info=BusinessInfo, focus_map=True)
@@ -171,7 +176,7 @@ def admin_dashboard():
         reviews=reviews
     )
 
-# --- API Endpoints ---
+# --- API Endpoints --- #
 
 @app.route("/api/book", methods=["POST"])
 def create_booking():
@@ -194,5 +199,6 @@ def create_booking():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
+
     with app.app_context():
         db.creat_all()
