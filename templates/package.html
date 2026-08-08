@@ -18,6 +18,8 @@
                 <option value="Dubai" {% if active_category == 'Dubai' %}selected{% endif %}>Dubai</option>
                 <option value="Bali" {% if active_category == 'Bali' %}selected{% endif %}>Bali</option>
                 <option value="Honeymoon" {% if active_category == 'Honeymoon' %}selected{% endif %}>Honeymoon Special</option>
+                <option value="family" {% if active_category == 'family' %}selected{% endif %}>family Special</option>
+            </select>
             </select>
             
             <button type="submit" class="btn btn-gold">Filter</button>
@@ -77,4 +79,35 @@
         </form>
     </div>
 </div>
-{% endblock %}
+<div id="loader">
+
+<i class="fa-solid fa-plane"></i>
+
+</div>
+
+<button id="topBtn">
+
+<i class="fa-solid fa-arrow-up"></i>
+
+</button>
+{% endfor %}
+const topBtn=document.getElementById("topBtn");
+
+window.onscroll=function(){
+
+topBtn.style.display=
+window.scrollY>300?"block":"none";
+
+}
+
+topBtn.onclick=function(){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
