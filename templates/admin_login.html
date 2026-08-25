@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}">
+
+<section class="admin-login-section">
+
+    <div class="admin-login-overlay"></div>
+
+    <div class="admin-login-box">
+
+        <div class="admin-login-icon">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+        <span class="admin-label">
+            SHARMA TRAVELS
+        </span>
+
+        <h1>Admin Login</h1>
+
+        <p>Welcome back, Administrator</p>
+
+        {% if error %}
+        <div class="admin-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+
+            <div class="admin-input">
+
+                <i class="fa-solid fa-user"></i>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Admin Username"
+                    required>
+
+            </div>
+
+            <div class="admin-input">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+            </div>
+
+            <button type="submit" class="admin-login-btn">
+
+                <span>Login to Dashboard</span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('home') }}" class="back-home">
+            <i class="fa-solid fa-arrow-left"></i>
+             to WBackebsite
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="reviews-section">
+
+<h1>Customer Reviews</h1>
+
+<form method="POST" class="review-form">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<select name="rating" required>
+<option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+<option value="4">⭐⭐⭐⭐ Very Good</option>
+<option value="3">⭐⭐⭐ Good</option>
+<option value="2">⭐⭐ Fair</option>
+<option value="1">⭐ Poor</option>
+</select>
+
+<textarea name="comment" placeholder="Write your review..." required></textarea>
+
+<button type="submit">Submit Review</button>
+
+</form>
+
+<div class="review-list">
+
+{% for review in reviews %}
+
+<div class="review-card">
+
+<h3>{{ review.name }}</h3>
+
+<p>Rating: {{ review.rating }}/5 ⭐</p>
+
+<p>{{ review.comment }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+{% endblock %}

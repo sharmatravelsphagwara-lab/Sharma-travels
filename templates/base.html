@@ -1,99 +1,152 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sharma Travels | Luxury Air Tickets, Visa & Holiday Packages Phagwara{% endblock %}</title>
 
-    <!-- Google Fonts: Poppins & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
-     rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sharma Travels</title>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
+
 <body>
 
-    <!-- Luxury Navigation Header -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="brand-logo">
-                <span class="logo-gold">SHARMA</span>
-                <span class="logo-sub">TRAVELS</span>
-            </a>
+<header>
 
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/package">Packages</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/admin" class="admin-badge"><i class="fa-solid fa-lock"></i> Admin Panel</a></li>
-            </ul>
+<nav class="navbar">
 
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggleBtn" title="Toggle Dark/Light Mode">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <a href="https://wa.me/919888082082?text=Hello%20Sharma%20Travels,%20I%20want%20to%20inquire%20about%20travel%20packages"
-                 target="_blank" class="btn btn-gold">
-                    <i class="fa-brands fa-whatsapp"></i> Quick Inquiry
-                </a>
-            </div>
-        </div>
-    </nav>
+<a href="{{ url_for('home') }}" class="logo">
 
-    <!-- Page Body Content -->
-    <div class="page-content">
-        {% block content %}{% endblock %}
-    </div>
+<span>Sharma</span> Travels
 
-    <!-- Floating WhatsApp Widget -->
-    <a href="https://wa.me/919888082082" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+</a>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col brand-col">
-                <h3 class="logo-gold">SHARMA TRAVELS</h3>
-                <p>Your premier gateway to domestic & international flight ticketing, visa assistance, and bespoke luxury holiday tours.</p>
-                <div class="social-links">
-                    <a href="{{ info.instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://wa.me/919888082082" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="mailto:{{ info.email }}"><i class="fa-solid fa-envelope"></i></a>
-                </div>
-            </div>
+<ul class="nav-links">
 
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="/package">All Tour Packages</a></li>
-                    <li><a href="/package?category=Europe">Europe Holidays</a></li>
-                    <li><a href="/package?category=Dubai">Dubai Special</a></li>
-                    <li><a href="/contact">Visa Filing Assistance</a></li>
-                </ul>
-            </div>
+<li><a href="{{ url_for('home') }}">Home</a></li>
 
-            <div class="footer-col">
-                <h4>Contact Details</h4>
-                <p><i class="fa-solid fa-location-dot gold-text"></i>Shri Nath Palace, Old Post Office Road, Phagwara - 144401, Punjab, India</p>
-                <p><i class="fa-solid fa-phone gold-text"></i>01824-358008</p> 
-                <p><i class="fa-brands fa-whatsapp gold-text"></i>98880-82082</p>
-                <p><i class="fa-solid fa-envelope gold-text"></i>sharmatravelsphagwara@gmail.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Sharma Travels Phagwara. All rights reserved. | Crafted for Excellence.</p>
-        </div>
-    </footer>
+<li><a href="{{ url_for('package') }}">Packages</a></li>
 
-    <!-- Main JS -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<li><a href="{{ url_for('destination') }}">Destinations</a></li>
+
+<li><a href="{{ url_for('about') }}">About</a></li>
+
+<li><a href="{{ url_for('booking') }}">Booking</a></li>
+
+<li><a href="{{ url_for('contact') }}">Contact</a></li>
+
+{% if session.get("user_id") %}
+
+<li>
+<a class="book-btn" href="{{ url_for('logout') }}">
+
+Logout
+
+</a>
+
+</li>
+
+{% else %}
+
+<li>
+
+<a class="login-btn" href="{{ url_for('login') }}">
+
+Login
+
+</a>
+
+</li>
+
+<li>
+
+<a class="register-btn" href="{{ url_for('register') }}">
+
+Register
+
+</a>
+
+</li>
+
+{% endif %}
+
+</ul>
+
+</nav>
+
+</header>
+
+{% block content %}
+
+{% endblock %}
+
+<footer>
+
+<div class="footer-container">
+
+<div>
+
+<h2>Sharma Travels</h2>
+
+<p>
+Trusted Travel Partner for International Tours,
+Visa Assistance and Holiday Packages.
+</p>
+
+</div>
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="/">Home</a>
+
+<a href="/package">Packages</a>
+
+<a href="/contact">Contact</a>
+
+<a href="/about">About</a>
+
+</div>
+
+<div>
+
+<h3>Contact</h3>
+
+<p>📍Sharma Travels,Old Post Office Road.<br> Phagwara, Punjab.</p>
+
+<p>📞 +91 01824-358008</p>
+
+<p>✉ info@sharmatravelsphagwara@gmail.com</p>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 Sharma Travels. All Rights Reserved.
+
+</div>
+
+</footer>
+
+<a class="whatsapp"
+href="https://wa.me/919876543210">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
 </body>
+
 </html>

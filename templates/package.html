@@ -1,113 +1,476 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="page-banner">
-    <h1>Explore Our <span class="gold-text">Exclusive Packages</span></h1>
-    <p>Filtered for luxury, convenience, and perfection.</p>
-</div>
 
-<section class="section container">
-    <!-- Search and Category Filters -->
-    <div class="filter-bar glass-card">
-        <form action="/package" method="GET" class="filter-form">
-            <input type="text" name="search" placeholder="Search destination..." value="{{ request.args.get('search', '') }}">
-            
-            <select name="category" onchange="this.form.submit()">
-                <option value="">All Categories</option>
-                <option value="Europe" {% if active_category == 'Europe' %}selected{% endif %}>Europe Tours</option>
-                <option value="Dubai" {% if active_category == 'Dubai' %}selected{% endif %}>Dubai</option>
-                <option value="Bali" {% if active_category == 'Bali' %}selected{% endif %}>Bali</option>
-                <option value="Honeymoon" {% if active_category == 'Honeymoon' %}selected{% endif %}>Honeymoon Special</option>
-                <option value="family" {% if active_category == 'family' %}selected{% endif %}>family Special</option>
-            </select>
-            </select>
-            
-            <button type="submit" class="btn btn-gold">Filter</button>
-        </form>
-    </div>
+<!-- =====================================================
+     SHARMA TRAVELS — PREMIUM PACKAGE PAGE
+     ===================================================== -->
 
-    <!-- Package Grid -->
-    <div class="grid grid-3" style="margin-top: 2rem;">
-        {% for pkg in packages %}
-        <div class="glass-card package-card-3d">
-            <div class="card-img-wrapper">
-                <img src="{{ pkg.image }}" alt="{{ pkg.title }}">
-                <span class="badge-price">{{ pkg.price }}</span>
-            </div>
-            <div class="card-body">
-                <span class="category-tag">{{ pkg.category }}</span>
-                <h3>{{ pkg.title }}</h3>
-                <p class="duration-text"><i class="fa-solid fa-calendar-day gold-text"></i> {{ pkg.duration }}</p>
-                <ul class="pkg-features">
-                    {% for inc in pkg.includes %}
-                    <li><i class="fa-solid fa-check gold-text"></i> {{ inc }}</li>
-                    {% endfor %}
-                </ul>
-                <button onclick="openBookingModal('{{ pkg.title }}', '{{ pkg.price }}')" class="btn btn-gold full-width">Book Package</button>
-            </div>
+<section class="package-page">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="package-hero">
+
+        <div class="package-hero-overlay"></div>
+
+        <div class="package-hero-content">
+
+            <span class="hero-badge">
+                ✈ PREMIUM TRAVEL EXPERIENCES
+            </span>
+
+            <h1>
+                Explore Our
+                <span>Premium Tour Packages</span>
+            </h1>
+
+            <p>
+                Discover unforgettable destinations, luxury stays
+                and beautifully planned journeys with Sharma Travels.
+            </p>
+
+            <!-- SEARCH -->
+
+            <form
+                method="GET"
+                action="{{ url_for('package') }}"
+                class="package-search"
+            >
+
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search your dream destination..."
+                    value="{{ search|default('') }}"
+                >
+
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Search
+                </button>
+
+            </form>
+
         </div>
-        {% else %}
-        <p>No packages found matching your criteria. Try resetting filters.</p>
-        {% endfor %}
-    </div>
+
+    </section>
+
+
+    <!-- ================= PACKAGES ================= -->
+
+    <section class="packages-section">
+
+        <div class="package-section-heading">
+
+            <span>OUR PACKAGES</span>
+
+            <h2>
+                Popular <strong>Destinations</strong>
+            </h2>
+
+            <p>
+                Choose from our carefully selected holiday packages
+                and start planning your next unforgettable journey.
+            </p>
+
+        </div>
+
+
+        <!-- ================= PACKAGE GRID ================= -->
+
+        <div class="package-grid">
+
+            {% if package %}
+
+                {% for item in package %}
+
+                <article class="package-card">
+
+                    <!-- ================= IMAGE ================= -->
+
+                    <div class="package-image">
+
+                        <img
+                            src="{{ url_for('static', filename='images/' + item.image) }}"
+                            alt="{{ item.title }}"
+                        >
+
+                        <div class="image-overlay"></div>
+
+                        <span class="package-tag">
+                            ✦ Popular
+                        </span>
+
+
+                        <!-- ================= WISHLIST TOP ================= -->
+
+                        {% if session.get('user_id') %}
+
+                        <a
+                            href="{{ url_for('add_to_wishlist', package_id=item.id) }}"
+                            class="wishlist-top"
+                            title="Add to Wishlist"
+                        >
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+
+                        {% else %}
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="wishlist-top"
+                            title="Login to add wishlist"
+                        >
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ================= CONTENT ================= -->
+
+                    <div class="package-content">
+
+                        <!-- TITLE -->
+
+                        <h3>
+                            {{ item.title }}
+                        </h3>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="package-location">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>
+                                {{ item.continent }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- RATING -->
+
+                        <div class="package-rating">
+
+                            <span class="stars">
+
+                                {% if item.rating >= 5 %}
+
+                                    ★★★★★
+
+                                {% elif item.rating >= 4 %}
+
+                                    ★★★★☆
+
+                                {% elif item.rating >= 3 %}
+
+                                    ★★★☆☆
+
+                                {% elif item.rating >= 2 %}
+
+                                    ★★☆☆☆
+
+                                {% else %}
+
+                                    ★☆☆☆☆
+
+                                {% endif %}
+
+                            </span>
+
+
+                            <span class="rating-text">
+                                {{ item.rating }}
+                            </span>
+
+
+                            <span class="reviews">
+                                Excellent
+                            </span>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p class="package-description">
+
+                            Experience an unforgettable
+                            {{ item.title }} journey with
+                            premium stays, beautiful destinations
+                            and carefully planned travel experiences.
+
+                        </p>
+
+
+                        <!-- ================= PRICE + DURATION ================= -->
+
+                        <div class="package-bottom">
+
+                            <div class="price-box">
+
+                                <span class="price-label">
+                                    Starting from
+                                </span>
+
+                                <span class="package-price">
+                                    ₹{{ item.price }}
+                                </span>
+
+                                <span class="price-duration">
+                                    / person
+                                </span>
+
+                            </div>
+
+
+                            <div class="package-days">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                                {{ item.duration }}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================= ACTIONS ================= -->
+
+                        <div class="package-actions">
+
+
+                            <!-- WISHLIST BUTTON -->
+
+                            {% if session.get('user_id') %}
+
+                            <a
+                                href="{{ url_for('add_to_wishlist', package_id=item.id) }}"
+                                class="wishlist-btn"
+                                title="Add to Wishlist"
+                            >
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </a>
+
+                            {% else %}
+
+                            <a
+                                href="{{ url_for('login') }}"
+                                class="wishlist-btn"
+                                title="Login to add Wishlist"
+                            >
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </a>
+
+                            {% endif %}
+
+
+                            <!-- BOOK NOW -->
+
+                            <a
+                                href="{{ url_for('booking', package_id=item.id) }}"
+                                class="book-btn"
+                            >
+
+                                Book Now
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <!-- ================= NO PACKAGE ================= -->
+
+                <div class="no-packages">
+
+                    <div class="no-package-icon">
+                        ✈
+                    </div>
+
+                    <h3>
+                        No Packages Found
+                    </h3>
+
+                    <p>
+                        We couldn't find a package matching your search.
+                        Try another destination.
+                    </p>
+
+                    <a href="{{ url_for('package') }}">
+                        View All Packages
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHY CHOOSE US ================= -->
+
+    <section class="package-features">
+
+        <div class="package-section-heading">
+
+            <span>
+                WHY SHARMA TRAVELS
+            </span>
+
+            <h2>
+                Travel With
+                <strong>Confidence</strong>
+            </h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="travel-feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-plane"></i>
+                </div>
+
+                <h3>
+                    Hassle-Free Travel
+                </h3>
+
+                <p>
+                    From booking to your return journey,
+                    we make your travel simple and stress-free.
+                </p>
+
+            </div>
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="travel-feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-hotel"></i>
+                </div>
+
+                <h3>
+                    Premium Stays
+                </h3>
+
+                <p>
+                    Enjoy comfortable and carefully selected
+                    hotels at beautiful destinations.
+                </p>
+
+            </div>
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="travel-feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+
+                <h3>
+                    24/7 Support
+                </h3>
+
+                <p>
+                    Our travel experts are always ready to
+                    assist you whenever you need us.
+                </p>
+
+            </div>
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="travel-feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h3>
+                    Trusted Service
+                </h3>
+
+                <p>
+                    Travel with confidence with reliable
+                    planning and transparent service.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="package-cta">
+
+        <div class="cta-content">
+
+            <span>
+                START YOUR JOURNEY
+            </span>
+
+            <h2>
+                Ready to explore
+                <strong>the world?</strong>
+            </h2>
+
+            <p>
+                Book your dream vacation with Sharma Travels
+                and create memories that last a lifetime.
+            </p>
+
+            <a
+                href="{{ url_for('destination') }}"
+                class="cta-btn"
+            >
+
+                View All Destinations
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
 </section>
 
-<!-- Booking Modal -->
-<div id="bookingModal" class="modal">
-    <div class="modal-content glass-card">
-        <span class="close-btn" onclick="closeBookingModal()">&times;</span>
-        <h2 id="modalPkgTitle">Book Package</h2>
-        <p id="modalPkgPrice" class="gold-text price-lg"></p>
-        
-        <form id="bookingForm" method="POST" action="/api/book"></form>
-            <input type="hidden" id="modalPkgTitleInput">
-            <input type="hidden" id="modalPkgPriceInput">
-            
-            <div class="form-group">
-                <label>Your Full Name</label>
-                <input type="text" id="custName" required placeholder="e.g. Rahul Sharma">
-            </div>
-            <div class="form-group">
-                <label>Phone Number / WhatsApp</label>
-                <input type="tel" id="custPhone" required placeholder="e.g. 9888082082">
-            </div>
-            <div class="form-group">
-                <label>Tentative Travel Date</label>
-                <input type="date" id="custDate" required>
-            </div>
-            <button type="submit" class="btn btn-gold full-width">Confirm Booking Request</button>
-        </form>
-    </div>
-</div>
-<div id="loader">
-
-<i class="fa-solid fa-plane"></i>
-
-</div>
-
-<button id="topBtn">
-
-<i class="fa-solid fa-arrow-up"></i>
-
-</button>
-{% endfor %}
-const topBtn=document.getElementById("topBtn");
-
-window.onscroll=function(){
-
-topBtn.style.display=
-window.scrollY>300?"block":"none";
-
-}
-
-topBtn.onclick=function(){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="auth-section">
+
+<div class="overlay"></div>
+
+<div class="auth-box">
+
+<h2>Welcome Back</h2>
+
+<p>Login to continue your journey.</p>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="POST">
+
+<div class="input-group">
+<input type="Email" name="Email" placeholder="Email Address" required>
+</div>
+
+<div class="input-group">
+<input type="password" name="password" placeholder="Password" required>
+</div>
+
+<button type="submit" class="btn-auth">
+Login
+</button>
+
+</form>
+
+<div class="bottom-link">
+Don't have an account?
+<a href="{{ url_for('register') }}">Register Here</a>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+function togglePassword(){
+
+let x=document.getElementById("password");
+
+if(x.type==="password"){
+
+x.type="text";
+
+}else{
+
+x.type="password";
+
+}
+
+}
+
+</script>
+
+{% endblock %}

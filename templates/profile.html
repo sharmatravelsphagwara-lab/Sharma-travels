@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/profile.css') }}">
+
+<section class="profile-page">
+
+    <!-- ================= PROFILE HERO ================= -->
+
+    <div class="profile-hero">
+
+        <div class="profile-hero-content">
+
+            <span>✦ SHARMA TRAVELS</span>
+
+            <h1>My <strong>Profile</strong></h1>
+
+            <p>
+                Manage your account and keep track of your journeys.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PROFILE CONTENT ================= -->
+
+    <div class="profile-container">
+
+        <!-- PROFILE CARD -->
+
+        <div class="profile-card">
+
+            <div class="profile-cover"></div>
+
+            <div class="profile-main">
+
+                <div class="profile-avatar">
+
+                    <span>
+                        {{ (user.name or user.username)[0]|upper }}
+                    </span>
+
+                </div>
+
+                <div class="profile-name">
+
+                    <h2>
+                        {{ user.name or user.username }}
+                    </h2>
+
+                    <p>
+                        <i class="fa-regular fa-envelope"></i>
+                        {{ user.email }}
+                    </p>
+
+                    <span class="member-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Verified Traveller
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE DETAILS -->
+
+            <div class="profile-details">
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+
+                    <div>
+                        <small>FULL NAME</small>
+                        <strong>
+                            {{ user.name or user.username }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+
+                    <div>
+                        <small>EMAIL ADDRESS</small>
+                        <strong>
+                            {{ user.email }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+                        <small>ACCOUNT STATUS</small>
+                        <strong class="active-text">
+                            Active
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+
+                    <div>
+                        <small>MEMBERSHIP</small>
+                        <strong>
+                            Sharma Traveller
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div class="profile-right">
+
+
+            <!-- TRAVEL STATS -->
+
+            <div class="travel-stats">
+
+                <div class="travel-stat">
+
+                    <div class="travel-stat-icon">
+                        <i class="fa-solid fa-suitcase-rolling"></i>
+                    </div>
+
+                    <span>My Bookings</span>
+
+                    <strong>
+                        {{ bookings|length if bookings else 0 }}
+                    </strong>
+
+                </div>
+
+
+                <div class="travel-stat">
+
+                    <div class="travel-stat-icon">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+
+                    <span>My Reviews</span>
+
+                    <strong>
+                        {{ reviews|length if reviews else 0 }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="profile-actions">
+
+                <div class="profile-section-heading">
+
+                    <span>ACCOUNT</span>
+
+                    <h2>Quick Actions</h2>
+
+                </div>
+
+
+                <a href="{{ url_for('booking') }}"
+                   class="profile-action">
+
+                    <div class="action-icon blue">
+                        <i class="fa-solid fa-plane-departure"></i>
+                    </div>
+
+                    <div>
+                        <strong>Book a Trip</strong>
+                        <small>
+                            Plan your next adventure
+                        </small>
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+                <a href="{{ url_for('package') }}"
+                   class="profile-action">
+
+                    <div class="action-icon cyan">
+                        <i class="fa-solid fa-suitcase-rolling"></i>
+                    </div>
+
+                    <div>
+                        <strong>Explore Packages</strong>
+                        <small>
+                            Discover premium travel packages
+                        </small>
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+
+                <a href="{{ url_for('destination') }}"
+                   class="profile-action">
+
+                    <div class="action-icon purple">
+                        <i class="fa-solid fa-earth-americas"></i>
+                    </div>
+
+                    <div>
+                        <strong>Explore Destinations</strong>
+                        <small>
+                            Find your dream destination
+                        </small>
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+                <a href="{{ url_for('review') }}"
+                   class="profile-action">
+
+                    <div class="action-icon gold">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+
+                    <div>
+                        <strong>Write a Review</strong>
+                        <small>
+                            Share your travel experience
+                        </small>
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <div class="profile-logout">
+
+                <div>
+
+                    <strong>Ready to leave?</strong>
+
+                    <small>
+                        You can login again anytime.
+                    </small>
+
+                </div>
+
+                <a href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

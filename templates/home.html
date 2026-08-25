@@ -1,111 +1,347 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section">
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
     <div class="hero-overlay"></div>
+
     <div class="hero-content">
-        <span class="luxury-badge"><i class="fa-solid fa-crown"></i> Premier Luxury Travel Agency</span>
-        <h1>Explore The World With <span class="gold-gradient-text">Sharma Travels</span></h1>
-        <p>Book Domestic & International Air Tickets, Visa Assistance, and Premium Holiday Packages with Phagwara's
-             most trusted travel experts.</p>
-        
-        <div class="hero-search-glass">
-            <form action="/package" method="GET" class="search-form">
-                <div class="input-group">
-                    <i class="fa-solid fa-compass"></i>
-                    <input type="text" name="search" placeholder="Where do you want to go? (e.g. Dubai, Switzerland)">
-                </div>
-                <button type="submit" class="btn btn-gold-lg"><i class="fa-solid fa-magnifying-glass"></i> Search Packages</button>
-            </form>
-        </div>
+
+        <h1>
+            Explore The World With
+            <span>Sharma Travels</span>
+        </h1>
+
+        <p>
+            International Tours • Visa Assistance • Flight Booking • Holiday Packages
+        </p>
+
+        <form action="{{ url_for('package') }}" method="GET" class="search-box">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search destination...">
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
     </div>
+
 </section>
 
-<!-- Why Choose Us -->
-<section class="section container">
-    <div class="section-title text-center">
-        <h2>Why Choose <span class="gold-text">Sharma Travels</span></h2>
-        <p>Delivering unmatched perfection, transparency, and VIP service for over 15+ years.</p>t
+<!-- ================= SERVICES ================= -->
+
+<section class="services-section">
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            OUR SERVICES
+        </span>
+
+        <h2>
+            Everything You Need
+            <span>For Your Journey</span>
+        </h2>
+
+        <p>
+            From planning to arrival, we provide complete travel
+            solutions designed around you.
+        </p>
+
     </div>
 
-    <div class="grid grid-4">
-        <div class="glass-card feature-card">
-            <div class="card-icon"><i class="fa-solid fa-plane-departure"></i></div>
-            <h3>Air Ticketing</h3>
-            <p>Best fares guaranteed on domestic & international flights with instant confirmation.</p>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                ✈
+            </div>
+
+            <h3>Flight Booking</h3>
+
+            <p>
+                Find the best flight options and enjoy a smooth,
+                hassle-free booking experience.
+            </p>
+
+            <a href="/contact">Learn More →</a>
+
         </div>
-        <div class="glass-card feature-card">
-            <div class="card-icon"><i class="fa-solid fa-passport"></i></div>
+
+
+        <div class="service-card featured-service">
+
+            <div class="popular-tag">
+                PREMIUM
+            </div>
+
+            <div class="service-icon">
+                🌍
+            </div>
+
+            <h3>Holiday Packages</h3>
+
+            <p>
+                Discover carefully designed holiday packages
+                for unforgettable experiences around the world.
+            </p>
+
+            <a href="/package">Explore Packages →</a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🛂
+            </div>
+
             <h3>Visa Assistance</h3>
-            <p>Expert guidance and high success rate for Canada, UK, Europe (Schengen), USA & Tourist Visas.</p>
+
+            <p>
+                Get professional guidance throughout your visa
+                application process.
+            </p>
+
+            <a href="/contact">Get Assistance →</a>
+
         </div>
-        <div class="glass-card feature-card">
-            <div class="card-icon"><i class="fa-solid fa-hotel"></i></div>
-            <h3>Luxury Hotels</h3>
-            <p>Handpicked 4-star and 5-star accommodations with curated VIP amenities.</p>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🏨
+            </div>
+
+            <h3>Hotel Booking</h3>
+
+            <p>
+                Stay at comfortable and premium hotels selected
+                according to your travel needs.
+            </p>
+
+            <a href="/contact">Book Hotel →</a>
+
         </div>
-        <div class="glass-card feature-card">
-            <div class="card-icon"><i class="fa-solid fa-headset"></i></div>
-            <h3>24/7 Dedicated Support</h3>
-            <p>Direct access to our specialists before, during, and after your trip.</p>
-        </div>
+
     </div>
+
 </section>
 
-<!-- Featured Packages -->
-<section class="section bg-soft container">
-    <div class="section-title">
-        <h2>Featured <span class="gold-text">Holiday Packages</span></h2>
-        <p>Handcrafted itineraries designed for unforgettable memories.</p>
+
+<!-- ================= STATS ================= -->
+
+<section class="stats-section">
+
+    <div class="stats-overlay"></div>
+
+    <div class="stats-container">
+
+        <div class="stat-box">
+
+            <div class="stat-number">
+                10+
+            </div>
+
+            <div class="stat-title">
+                Years Experience
+            </div>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-number">
+                5K+
+            </div>
+
+            <div class="stat-title">
+                Happy Travellers
+            </div>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-number">
+                50+
+            </div>
+
+            <div class="stat-title">
+                Destinations
+            </div>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-number">
+                99%
+            </div>
+
+            <div class="stat-title">
+                Customer Satisfaction
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="grid grid-3">
-        {% for pkg in packages %}
-        <div class="glass-card package-card-3d">
-            <div class="card-img-wrapper">
-                <img src="{{ pkg.image }}" alt="{{ pkg.title }}">
-                <span class="badge-price">{{ pkg.price }}</span>
-            </div>
-            <div class="card-body">
-                <div class="card-meta">
-                    <span><i class="fa-solid fa-clock"></i> {{ pkg.duration }}</span>
-                    <span><i class="fa-solid fa-star gold-text"></i> {{ pkg.rating }}</span>
-                </div>
-                <h3>{{ pkg.title }}</h3>
-                <div class="includes-tags">
-                    {% for inc in pkg.includes %}
-                    <span class="tag">{{ inc }}</span>
-                    {% endfor %}
-                </div>
-                <div class="card-footer">
-                    <a href="https://wa.me/919888082082?text=I%20want%20to%20book%20{{ pkg.title }}"
-                     target="_blank" class="btn btn-outline-gold">Book via WhatsApp</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
 </section>
 
-<!-- Customer Reviews -->
-<section class="section container">
-    <div class="section-title text-center">
-        <h2>What Our <span class="gold-text">Travelers Say</span></h2>
+
+<!-- ================= WHY CHOOSE US ================= -->
+
+<section class="why-section">
+
+    <div class="why-heading">
+
+        <span class="section-label">
+            WHY CHOOSE US
+        </span>
+
+        <h2>
+            Your Journey,
+            <span>Our Responsibility</span>
+        </h2>
+
+        <p>
+            We combine experience, personalized service and attention
+            to detail to make every journey special.
+        </p>
+
     </div>
-    <div class="grid grid-2">
-        {% for review in reviews %}
-        <div class="glass-card review-card">
-            <div class="review-stars">
-                {% for i in range(review.rating) %}<i class="fa-solid fa-star gold-text"></i>{% endfor %}
+
+
+    <div class="why-grid">
+
+        <div class="why-card">
+
+            <div class="why-number">
+                01
             </div>
-            <p>"{{ review.comment }}"</p>
-            <div class="reviewer-info">
-                <strong>{{ review.name }}</strong>
-                <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Traveler</span>
+
+            <div class="why-icon">
+                💎
             </div>
+
+            <h3>Premium Experience</h3>
+
+            <p>
+                We focus on quality, comfort and personalized travel
+                experiences for every customer.
+            </p>
+
         </div>
-        {% endfor %}
+
+
+        <div class="why-card">
+
+            <div class="why-number">
+                02
+            </div>
+
+            <div class="why-icon">
+                🤝
+            </div>
+
+            <h3>Trusted Service</h3>
+
+            <p>
+                Our team is committed to providing reliable and
+                transparent travel assistance.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div class="why-number">
+                03
+            </div>
+
+            <div class="why-icon">
+                🧳
+            </div>
+
+            <h3>Complete Solutions</h3>
+
+            <p>
+                Flights, hotels, visas and holiday packages —
+                everything under one roof.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div class="why-number">
+                04
+            </div>
+
+            <div class="why-icon">
+                🌟
+            </div>
+
+            <h3>24/7 Support</h3>
+
+            <p>
+                We are always here to help you before, during and
+                after your journey.
+            </p>
+
+        </div>
+
     </div>
+
 </section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="about-cta">
+
+    <div class="cta-content">
+
+        <span>
+            YOUR NEXT ADVENTURE AWAITS
+        </span>
+
+        <h2>
+            Ready To Explore
+            <strong>The World?</strong>
+        </h2>
+
+        <p>
+            Let Sharma Travels turn your travel dreams into
+            unforgettable memories.
+        </p>
+
+        <a href="/package" class="cta-button">
+            Start Your Journey
+            <span>→</span>
+        </a>
+
+    </div>
+
+</section>
+
+
 {% endblock %}

@@ -1,68 +1,115 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<section class="about-section">
+<!-- ================= HERO SECTION ================= -->
 
-    <div class="about-container">
+<section class="about-hero">
 
-        <h1>About Sharma Travels</h1>
+    <div class="about-hero-overlay"></div>
 
-        <p class="intro">
-            Welcome to <strong>Sharma Travels</strong>, your trusted travel partner.
-            We provide safe, comfortable, and affordable travel services for individuals,
-            families, and businesses. Our goal is to make every journey enjoyable and
-            hassle-free.
+    <div class="about-hero-content">
+
+        <span class="hero-small-title">
+            ✦ WELCOME TO SHARMA TRAVELS
+        </span>
+
+        <h1>
+            Discover The World
+            <span>In Luxury</span>
+        </h1>
+
+        <p>
+            Your journey begins with us. Experience unforgettable
+            destinations, premium services and seamless travel planning.
         </p>
 
-        <div class="about-box">
-            <h2>Our Mission</h2>
-            <p>
-                Our mission is to provide reliable transportation services with comfort,
-                safety, and customer satisfaction. We aim to make every trip memorable
-                through quality service and professional support.
-            </p>
+        <div class="hero-buttons">
+
+            <a href="/package" class="luxury-btn">
+                Explore Packages
+                <span>→</span>
+            </a>
+
+            <a href="/contact" class="outline-btn">
+                Contact Us
+            </a>
+
         </div>
 
-        <div class="about-box">
-            <h2>Why Choose Us?</h2>
+    </div>
 
-            <ul>
-                <li>✔ Safe & Comfortable Travel</li>
-                <li>✔ Experienced Drivers</li>
-                <li>✔ Affordable Pricing</li>
-                <li>✔ 24/7 Customer Support</li>
-                <li>✔ Well-Maintained Vehicles</li>
-                <li>✔ Easy Online Booking</li>
-            </ul>
-        </div>
+    <div class="scroll-indicator">
+        <span></span>
+        SCROLL TO EXPLORE
+    </div>
 
-        <div class="about-box">
-            <h2>Our Services</h2>
+</section>
 
-            <div class="services">
 
-                <div class="service-card">
-                    🚌 Bus Booking
-                </div>
+<!-- ================= ABOUT INTRO ================= -->
 
-                <div class="service-card">
-                    🚖 Taxi Service
-                </div>
+<section class="about-intro">
 
-                <div class="service-card">
-                    ✈️ Tour Packages
-                </div>
+    <div class="about-image-wrapper">
 
-                <div class="service-card">
-                    📍 Local & Outstation Trips
-                </div>
+        <div class="about-image-card">
 
+            <img
+                src="{{ url_for('static', filename='images/us.jpg') }}"
+                alt="Luxury Travel"
+            >
+
+            <div class="experience-badge">
+                <strong>10+</strong>
+                <span>Years of<br>Experience</span>
             </div>
 
         </div>
 
     </div>
 
+
+    <div class="about-text">
+
+        <span class="section-label">
+            ABOUT SHARMA TRAVELS
+        </span>
+
+        <h2>
+            Travel Beyond
+            <span>Expectations</span>
+        </h2>
+
+        <div class="section-line"></div>
+
+        <p>
+            At <strong>Sharma Travels</strong>, we believe that travelling
+            is not just about visiting places — it is about creating
+            memories that last a lifetime.
+        </p>
+
+        <p>
+            From international holidays and visa assistance to flight
+            bookings and customized travel packages, our experienced
+            team takes care of every detail of your journey.
+        </p>
+
+        <p>
+            Whether you are planning a romantic getaway, a family
+            vacation or your dream international trip, we make your
+            travel experience comfortable, luxurious and completely
+            stress-free.
+        </p>
+
+        <a href="/contact" class="read-more-btn">
+            Plan Your Journey
+            <span>→</span>
+        </a>
+
+    </div>
+
 </section>
+
 
 {% endblock %}

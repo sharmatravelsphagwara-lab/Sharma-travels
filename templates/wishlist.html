@@ -1,0 +1,280 @@
+Premium Blue Theme — "wishlist.html"
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="wishlist-page">
+
+    <!-- ================= HERO / HEADER ================= -->
+
+    <div class="wishlist-hero">
+
+        <div class="wishlist-hero-content">
+
+            <span class="wishlist-label">
+                ✦ SHARMA TRAVELS
+            </span>
+
+            <h1>
+                My <span>Wishlist</span>
+            </h1>
+
+            <p>
+                Save your favourite destinations and plan
+                your next unforgettable journey.
+            </p>
+
+        </div>
+
+        <div class="wishlist-hero-icon">
+            <i class="fa-solid fa-heart"></i>
+        </div>
+
+    </div>
+
+
+    <!-- ================= WISHLIST CONTENT ================= -->
+
+    <section class="wishlist-container">
+
+        {% if wishlist %}
+
+        <div class="wishlist-topbar">
+
+            <div>
+                <span class="wishlist-small-title">
+                    YOUR SAVED JOURNEYS
+                </span>
+
+                <h2>
+                    Favourite Destinations
+                </h2>
+            </div>
+
+            <div class="wishlist-count">
+                <i class="fa-solid fa-heart"></i>
+                {{ wishlist|length }} Saved
+            </div>
+
+        </div>
+
+
+        <!-- ================= GRID ================= -->
+
+        <div class="wishlist-grid">
+
+            {% for item in wishlist %}
+
+            <article class="wishlist-card">
+
+                <!-- IMAGE -->
+
+                <div class="wishlist-image">
+
+                    <img
+                        src="{{ url_for('static', filename='images/' + item.image) }}"
+                        alt="{{ item.title }}"
+                    >
+
+                    <div class="wishlist-image-overlay"></div>
+
+                    <span class="wishlist-badge">
+                        <i class="fa-solid fa-star"></i>
+                        {{ item.rating }}
+                    </span>
+
+                    <!-- REMOVE -->
+
+                    <a
+                        href="{{ url_for('remove_from_wishlist', package_id=item.id) }}"
+                        class="remove-wishlist"
+                        title="Remove from Wishlist"
+                        onclick="return confirm('Remove this destination from your wishlist?');"
+                    >
+                        <i class="fa-solid fa-heart"></i>
+                    </a>
+
+                </div>
+
+
+                <!-- CONTENT -->
+
+                <div class="wishlist-content">
+
+                    <span class="wishlist-category">
+                        {{ item.category }}
+                    </span>
+
+                    <h3>
+                        {{ item.title }}
+                    </h3>
+
+
+                    <div class="wishlist-location">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>
+                            {{ item.continent }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- INFO -->
+
+                    <div class="wishlist-info">
+
+                        <div>
+                            <i class="fa-regular fa-clock"></i>
+
+                            <span>
+                                {{ item.duration }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-star"></i>
+
+                            <span>
+                                {{ item.rating }} / 5
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+
+                    <div class="wishlist-price">
+
+                        <div>
+
+                            <span>
+                                Starting from
+                            </span>
+
+                            <strong>
+                                {{ item.price }}
+                            </strong>
+
+                            <small>
+                                / person
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="wishlist-actions">
+
+                        <a
+                            href="{{ url_for('booking', package_id=item.id) }}"
+                            class="wishlist-book-btn"
+                        >
+                            <span>
+                                Book Now
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                        <a
+                            href="{{ url_for('remove_from_wishlist', package_id=item.id) }}"
+                            class="wishlist-remove-btn"
+                            title="Remove"
+                        >
+                            <i class="fa-regular fa-trash-can"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ================= BOTTOM CTA ================= -->
+
+        <div class="wishlist-cta">
+
+            <div class="wishlist-cta-icon">
+                <i class="fa-solid fa-plane-departure"></i>
+            </div>
+
+            <div class="wishlist-cta-content">
+
+                <span>
+                    READY FOR YOUR NEXT ADVENTURE?
+                </span>
+
+                <h2>
+                    Find more beautiful destinations.
+                </h2>
+
+                <p>
+                    Explore our premium travel packages
+                    and discover your next dream holiday.
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('package') }}"
+                class="wishlist-explore-btn"
+            >
+                Explore Packages
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        {% else %}
+
+        <!-- ================= EMPTY WISHLIST ================= -->
+
+        <div class="wishlist-empty">
+
+            <div class="empty-heart">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+
+            <span>
+                YOUR WISHLIST IS WAITING
+            </span>
+
+            <h2>
+                No Saved Destinations
+            </h2>
+
+            <p>
+                You haven't added any destinations to your wishlist yet.
+                Explore our premium packages and save the places you love.
+            </p>
+
+            <a
+                href="{{ url_for('package') }}"
+                class="empty-explore-btn"
+            >
+                <i class="fa-solid fa-compass"></i>
+                Explore Packages
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</section>
+
+{% endblock %}
