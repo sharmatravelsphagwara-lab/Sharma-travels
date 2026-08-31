@@ -3658,6 +3658,90 @@ body {
     }
 }
 
+
+/* =====================================================
+   ADMIN LOGIN ICON
+   Only visible on Login Page
+   ===================================================== */
+
+.admin-access {
+    margin-top: 22px;
+    text-align: center;
+}
+
+.admin-access a {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: rgba(66, 65, 65, 0.65);
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
+    background: rgba(255, 255, 255, 0.06);
+
+    transition: all 0.3s ease;
+}
+
+.admin-access a:hover {
+
+    color: #2c66c3;
+
+    background: rgba(53, 53, 53, 0.15);
+
+    border-color: rgba(255, 255, 255, 0.50);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+   ===================================================== */
+
+.password-group {
+    position: relative;
+}
+
+.password-group input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    opacity: 0.7;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
 /* =========================================================
    SHARMA TRAVELS
    ABOUT PAGE - PREMIUM / LUXURY CSS

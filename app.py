@@ -538,7 +538,6 @@ def register():
                 info=info,
                 error="Password must be at least 6 characters."
             )
-
         existing_user = User.query.filter_by(
             email=email
         ).first()
@@ -631,8 +630,6 @@ def login():
         "login.html",
         info=info
     )
-
-
 # =========================================================
 # USER LOGOUT
 # =========================================================
@@ -1195,7 +1192,6 @@ def booking_success():
         "booking_success.html",
         info=info
     )
-
 
 
 # =========================================================
