@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="payment-page">
+
+    <div class="payment-container">
+
+        <!-- HEADER -->
+
+        <div class="payment-header">
+
+            <div class="payment-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <span>SECURE PAYMENT</span>
+
+            <h1>Complete Your <strong>Payment</strong></h1>
+
+            <p>
+                Securely complete your payment to confirm your
+                Sharma Travels booking.
+            </p>
+
+        </div>
+
+
+        <!-- PAYMENT CARD -->
+
+        <div class="payment-card">
+
+            <div class="payment-card-header">
+
+                <div>
+                    <span>BOOKING SUMMARY</span>
+                    <h2>{{ booking.package }}</h2>
+                </div>
+
+                <i class="fa-solid fa-plane-departure"></i>
+
+            </div>
+
+
+            <div class="payment-details">
+
+                <div class="detail-row">
+                    <span>
+                        <i class="fa-regular fa-user"></i>
+                        Customer
+                    </span>
+
+                    <strong>
+                        {{ booking.customer }}
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Destination
+                    </span>
+
+                    <strong>
+                        {{ booking.destination or "Travel Package" }}
+                    </strong>
+                </div>
+
+
+                <div class="detail-row">
+                    <span>
+                        <i class="fa-regular fa-calendar"></i>
+                        Travel Date
+                    </span>
+
+                    <strong>
+                        {{ booking.date or "Not specified" }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- AMOUNT -->
+
+            <div class="payment-total">
+
+                <span>Total Amount</span>
+
+                <strong>
+                    {{ booking.amount or "₹0" }}
+                </strong>
+
+            </div>
+
+
+            <!-- RAZORPAY BUTTON -->
+
+            <button
+                id="pay-button"
+                class="payment-button"
+                type="button"
+            >
+
+                <i class="fa-solid fa-credit-card"></i>
+
+                Pay Now
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+
+            <div class="secure-payment">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                100% Secure Payment
+
+            </div>
+
+            <p class="payment-methods">
+                UPI • Cards • Net Banking • Wallets
+            </p>
+
+        </div>
+
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-home"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Home
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RAZORPAY
+===================================================== -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+document.getElementById("pay-button").onclick = function () {
+
+    var options = {
+
+        key: "{{ razorpay_key_id }}",
+
+        amount: "{{ amount_paise }}",
+
+        currency: "INR",
+
+        name: "Sharma Travels",
+
+        description: "Travel Package Booking",
+
+        image: "{{ url_for('static', filename='images/logo.png') }}",
+
+        prefill: {
+
+            name: "{{ booking.customer }}",
+
+            email: "{{ booking.email }}",
+
+            contact: "{{ booking.phone }}"
+
+        },
+
+        theme: {
+
+            color: "#0066cc"
+
+        },
+
+        handler: function (response) {
+
+            window.location.href =
+                "{{ url_for('success', booking_id=booking.id) }}"
+                + "?payment_id="
+                + response.razorpay_payment_id;
+
+        },
+
+        modal: {
+
+            ondismiss: function () {
+
+                console.log("Payment window closed.");
+
+            }
+
+        }
+
+    };
+
+    var razorpay = new Razorpay(options);
+
+    razorpay.open();
+
+};
+
+</script>
+
+{% endblock %}
