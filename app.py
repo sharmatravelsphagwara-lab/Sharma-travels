@@ -1189,7 +1189,7 @@ def booking_success():
     info = BusinessInfo.query.first()
 
     return render_template(
-        "booking_success.html",
+        "success.html",
         info=info
     )
 
