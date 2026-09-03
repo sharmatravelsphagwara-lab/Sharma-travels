@@ -47,10 +47,19 @@
 {% if session.get("user_id") %}
 
 <li>
-<a class="book-btn" href="{{ url_for('logout') }}">
+    <a class="profile-btn" href="{{ url_for('profile') }}">
+        <i class="fa-solid fa-user"></i>
+        Profile
+    </a>
+</li>
 
-Logout
+<li>
+    <a class="book-btn" href="{{ url_for('logout') }}">
+        Logout
+    </a>
+</li>
 
+{% else %}
 </a>
 
 </li>
