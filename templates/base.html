@@ -60,34 +60,20 @@
 </li>
 
 {% else %}
-</a>
-
-</li>
-
-{% else %}
 
 <li>
-
-<a class="login-btn" href="{{ url_for('login') }}">
-
-Login
-
-</a>
-
+    <a class="login-btn" href="{{ url_for('login') }}">
+        Login
+    </a>
 </li>
 
 <li>
-
-<a class="register-btn" href="{{ url_for('register') }}">
-
-Register
-
-</a>
-
+    <a class="register-btn" href="{{ url_for('register') }}">
+        Register
+    </a>
 </li>
 
 {% endif %}
-
 </ul>
 
 </nav>
