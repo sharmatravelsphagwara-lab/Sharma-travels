@@ -1094,7 +1094,7 @@ def booking():
 
             amount = selected_package.price
 
-        # If form sends price separately
+        
 
         if not amount:
 
