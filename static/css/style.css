@@ -5009,10 +5009,13 @@ body {
 }
 
 
-.destination-grid .bali {
+.destination-grid .canada {
     background-image:
         url("../images/canada.jpg");
+        background-image: 
+        url("../images/toronto.jpg");
 }
+
 
 
 .destination-grid .thailand {
