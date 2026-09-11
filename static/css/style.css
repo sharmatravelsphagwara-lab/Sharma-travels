@@ -5012,10 +5012,7 @@ body {
 .destination-grid .canada {
     background-image:
         url("../images/canada.jpg");
-        background-image: 
-        url("../images/toronto.jpg");
 }
-
 
 
 .destination-grid .thailand {
@@ -5045,9 +5042,9 @@ body {
         url("../images/paris.jpg");
 }
 
-.destination-grid .london {
+.destination-grid .Toronto {
     background-image:
-        url("../images/london1.jpg");
+        url("../images/Totonto.jpg");
 }
 
 
